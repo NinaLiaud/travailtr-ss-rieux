@@ -10,14 +10,15 @@
 </head>
 
 <body>
-    <form action="c:\laragon\www\login_quizz.php" method="post">
-        <header id="accueil">
-            <div>
-                <h1>QUIZZ AJAX</h1>
-                <h4>Julien & Nina</h4>
-                <h4>xx/xx/2024</h4>
-            </div>
-        </header>
+
+    <header id="accueil">
+        <div>
+            <h1>QUIZZ AJAX</h1>
+            <h4>Julien & Nina</h4>
+            <h4>xx/xx/2024</h4>
+        </div>
+    </header>
+    <form id="myForm">
         <div id="corps">
             <div class="grid-container">
 
@@ -308,8 +309,7 @@
             </div>
 
             <br>
-
-            <button id="ajaxButton">valider la réponse</button>
+            <input id="ajaxButton" type="submit" value="Valider la réponse">
             <div id="espace"></div>
         </div>
     </form>
@@ -317,25 +317,43 @@
 
     <script>
         $(document).ready(function () {
-            $('#ajaxButton').click(function () {
+            $("#myForm").submit(function (event) {
+                event.preventDefault(); //  J’empêche la page de reaload comme c’est normalement le cas sur un submit
+
+                //  Je convertie mon form en JSON
+                const formData = $("#myForm").serialize();
+
+                // Send AJAX POST request with form data
                 $.ajax({
-                    url: 'http://127.0.0.1/login_quizz',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log("reception successful")
-                        var message = data.message;
-                        $('#espace').html(
-                            message);
+                    url: "http://127.0.0.1/login_quizz",
+                    type: "POST",
+                    data: formData,
+                    success: function (response) {
+                        console.log("Mon form sent " + formData)
                     },
                     error: function (xhr, status, error) {
+                        console.log("Mon form sent " + formData)
                         console.log(xhr)
                         $('#espace').html(
                             xhr.responseText);
                     }
                 });
             });
-
+            $.ajax({
+                url: 'http://127.0.0.1/login_quizz',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log("reception successful")
+                    var message = data.message;
+                    $('#espace').html(
+                        message);
+                },
+                error: function (xhr, status, error) {
+                    $('#espace').html(
+                        xhr.responseText);
+                }
+            });
         });
 
 

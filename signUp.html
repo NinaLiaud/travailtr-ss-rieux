@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Sign up</title>
+    <link rel="stylesheet" href="css/style_signUp.css" />
+</head>
+
+<body>
+    <h1>Sign Up</h1>
+
+    <div class="grid-container">
+
+        <div class="grid-item">
+            <label for="email">* email</label><br>
+            <input type="email" class="rond" id="email" name="email" required />
+        </div>
+
+        <div class="grid-item">
+            <label for="nom">* nom</label><br>
+            <input type="text" class="rond" id="nom" name="nom" required />
+        </div>
+
+        <div class="grid-item">
+            <label for="prenom">* prénom</label><br>
+            <input type="text" class="rond" id="prenom" name="prenom" />
+        </div>
+
+        <div class="grid-item">
+            <label for="mdp">* mot de passe</label><br>
+            <input type="password" class="rond" id="mdp" name="mdp" />
+        </div>
+
+        <input class="grid-item" id="ajaxButton" type="submit" value="Sign Up!">
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#ajaxButton').click(function () {
+                $.ajax({
+                    url: 'http://localhost:3002/app.js',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        email: $('#email').val(),
+                        nom: $("#nom").val(),
+                        prenom: $("#prenom").val(),
+                        mdp: $("#mdp").val()
+                    },
+                    success: function (data) {
+                        console.log("c'est bon!");
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+                });
+                window.location.href = 'CreateQuizz.html';
+            });
+        });
+    </script>
+</body>
+
+</html>

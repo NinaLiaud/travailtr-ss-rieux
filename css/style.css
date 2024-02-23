@@ -3,7 +3,6 @@ header {
     width: auto;
     color: #fff;
     padding: 40px;
-    background-color: rgb(74, 92, 135);
 }
 
 header div {
@@ -23,7 +22,8 @@ header div h4 {
 }
 
 body {
-    background-color: rgb(74, 92, 135);
+    background-image: url("../css/test7.jpg");
+    background-attachment: fixed;
     border: 1px solid white;
 }
 
