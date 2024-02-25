@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Accueil</title>
+    <link rel="stylesheet" href="css/style_signUp.css" />
+</head>
+
+<body>
+    <h1>Bonjour</h1>
+    <h1 id="prenom"></h1>
+    <a href="CreateQuizz.html">CREATE</a>
+    <a href="mesQuizz.html">MES QUIZZ</a>
+    <script>
+        $(document).ready(function () {
+            // Récupère les paramètres de l'URL
+            const params = new URLSearchParams(window.location.search);
+
+            // Récupère les valeurs des paramètres
+            const userId = params.get('userId');
+            const nom = params.get('nom');
+            const prenom = params.get('prenom');
+
+            // Utilise les valeurs pour afficher les données de l'utilisateur sur la page
+            $("#nom").text(nom);
+            $("#prenom").text(prenom);
+        });
+    </script>
+</body>
+
+</html>
