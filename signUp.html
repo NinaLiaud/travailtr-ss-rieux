@@ -38,28 +38,29 @@
 
     </div>
     <script>
-        $(document).ready(function () {
-            $('#ajaxButton').click(function () {
-                $.ajax({
-                    url: 'http://localhost:3002/addUser',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        email: $('#email').val(),
-                        nom: $("#nom").val(),
-                        prenom: $("#prenom").val(),
-                        mdp: $("#mdp").val()
-                    },
-                    success: function (data) {
-                        console.log("c'est bon!");
-                    },
-                    error: function (xhr, status, error) {
-                        console.log('Error:', error);
-                    }
-                });
-                window.location.href = 'CreateQuizz.html';
+    $(document).ready(function () {
+        $('#ajaxButton').click(function () {
+            $.ajax({
+                url: 'http://localhost:3002/addUser',
+                type: 'POST',
+                dataType: 'text',
+                contentType: 'application/json', // Set the Content-Type to JSON
+                data: JSON.stringify({
+                    email: $('#email').val(),
+                    nom: $("#nom").val(),
+                    prenom: $("#prenom").val(),
+                    mdp: $("#mdp").val()
+                }),
+                success: function (data) {
+                    console.log("C'est bon!");
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', error);
+                }
             });
+            window.location.href = 'QuizzName.html';
         });
+    });
     </script>
 </body>
 

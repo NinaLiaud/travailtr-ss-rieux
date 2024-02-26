@@ -28,6 +28,18 @@ app.post('/addUser', (req, res) => {
     });
 });
 
+app.post('/addQuizz', (req, res) => {
+    const user = { qname: req.body.qname};
+    const sql = 'INSERT INTO qcm (QcmName) VALUES (?)';
+
+    db.query(sql, [user.qname], (error, results) => {
+        if (error) {
+            return res.status(500).send('Erreur lors de l\'insertion de l\'utilisateur');
+        }
+        res.status(201).send(`utilisateur ajouté avec l'ID: ${results.insertId}`);
+    });
+});
+
 
 
 app.post('/', (req, res) => {
