@@ -19,7 +19,6 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/addUser', (req, res) => {
     const user = { email: req.body.email, nom: req.body.nom, prenom: req.body.prenom, mdp: req.body.mdp };
     const sql = 'INSERT INTO users (email, nom, prenom, mdp) VALUES (?, ?, ?, ?)';
-
     db.query(sql, [user.email, user.nom, user.prenom, user.mdp], (error, results) => {
         if (error) {
             return res.status(500).send('Erreur lors de l\'insertion de l\'utilisateur');
