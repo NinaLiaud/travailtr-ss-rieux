@@ -57,18 +57,24 @@
 
     <script>
         $(document).ready(function () {
+            const userId = sessionStorage.getItem('userId');
+            const qcmId = sessionStorage.getItem('qcmId');
+
             $('#ajaxButton').click(function () {
                 $.ajax({
                     url: 'http://localhost:3002',
                     type: 'POST',
                     dataType: 'json',
-                    data: {
+                    contentType: 'application/json',
+                    data: JSON.stringify({
                         question: $('#question').val(),
                         A: $("#A").val(),
                         B: $("#B").val(),
                         C: $("#C").val(),
-                        D: $("#D").val()
-                    },
+                        D: $("#D").val(),
+                        userId: userId,
+                        qcmId: qcmId
+                    }),
                     success: function (data) {
                         console.log("c'est bon!");
                     },

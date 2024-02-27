@@ -16,32 +16,35 @@
 
         <div class="grid-item">
             <label for="qname">* Quizz name</label><br>
-            <input type="qname" class="rond" id="qname" name="qname" required />
+            <input type="text" class="rond" id="qname" name="qname" required />
         </div>
         <input class="grid-item" id="ajaxButton" type="submit" value="Submit">
 
     </div>
     <script>
-    $(document).ready(function () {
-        $('#ajaxButton').click(function () {
-            $.ajax({
-                url: 'http://localhost:3002/addQuizz',
-                type: 'POST',
-                dataType: 'text',
-                contentType: 'application/json', // Set the Content-Type to JSON
-                data: JSON.stringify({
-                    qname: $('#qname').val(),
-                }),
-                success: function (data) {
-                    console.log("C'est bon!");
-                },
-                error: function (xhr, status, error) {
-                    console.log('Error:', error);
-                }
+        $(document).ready(function () {
+            $('#ajaxButton').click(function () {
+                $.ajax({
+                    url: 'http://localhost:3002/addQuizz',
+                    type: 'POST',
+                    dataType: 'json', // Assume que le serveur renvoie du JSON
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        qname: $('#qname').val()
+                    }),
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("C'est bon!");
+                            sessionStorage.setItem('qcmId', response.qcmId);
+                            window.location.href = 'CreateQuizz.html';
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error:', error);
+                    }
+                });
             });
-            window.location.href = 'CreateQuizz.html';
         });
-    });
     </script>
 </body>
 

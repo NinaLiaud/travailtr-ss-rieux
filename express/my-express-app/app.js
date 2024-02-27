@@ -28,28 +28,37 @@ app.post('/addUser', (req, res) => {
 });
 
 app.post('/addQuizz', (req, res) => {
-    const user = { qname: req.body.qname};
+    const user = { qname: req.body.qname };
     const sql = 'INSERT INTO qcm (QcmName) VALUES (?)';
 
     db.query(sql, [user.qname], (error, results) => {
         if (error) {
-            return res.status(500).send('Erreur lors de l\'insertion de l\'utilisateur');
+            return res.status(500).send('Erreur lors de l\'insertion du QCM');
         }
-        res.status(201).send(`utilisateur ajouté avec l'ID: ${results.insertId}`);
+        const qcmId = results.insertId;
+        res.status(201).json({ success: true, qcmId: qcmId }); // Renvoyer l'ID du QCM nouvellement créé
     });
 });
 
 
 
 app.post('/', (req, res) => {
-    const quizz = { question: req.body.question, A: req.body.A, B: req.body.B, C: req.body.C, D: req.body.D };
-    const sql = 'INSERT INTO js (question, A, B, C, D) VALUES (?, ?, ?, ?, ?)';
+    const quizz = {
+        question: req.body.question,
+        A: req.body.A,
+        B: req.body.B,
+        C: req.body.C,
+        D: req.body.D,
+        userId: req.body.userId, // Assurez-vous que userId est passé dans le corps de la requête
+        qcmId: req.body.qcmId // Assurez-vous que qcmId est aussi passé dans le corps de la requête
+    };
+    const sql = 'INSERT INTO js (question, A, B, C, D, idUser, idQcmName) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
-    db.query(sql, [quizz.question, quizz.A, quizz.B, quizz.C, quizz.D], (error, results) => {
+    db.query(sql, [quizz.question, quizz.A, quizz.B, quizz.C, quizz.D, quizz.userId, quizz.qcmId], (error, results) => {
         if (error) {
-            return res.status(500).send('Erreur lors de l\'insertion de l\'utilisateur');
+            return res.status(500).send('Erreur lors de l\'insertion de la question');
         }
-        res.status(201).send(`utilisateur ajouté avec l'ID: ${results.insertId}`);
+        res.status(201).send(`Question ajoutée avec l'ID: ${results.insertId}`);
     });
 });
 
