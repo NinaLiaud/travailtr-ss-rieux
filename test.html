@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Quizz Ajax</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <header id="accueil">
+        <div>
+            <h1>QUIZZ AJAX</h1>
+            <h4>Julien & Nina</h4>
+            <h4>xx/xx/2024</h4>
+        </div>
+    </header>
+    <form id="myForm">
+        <div id="corps">
+            <!-- Les balises HTML pour afficher les questions du quiz -->
+            <!-- Assurez-vous d'avoir correctement configuré le nombre de questions -->
+        </div>
+        <br>
+        <input id="ajaxButton" type="submit" value="Valider la réponse">
+        <div id="espace"></div>
+    </form>
+
+    <script>
+        $(document).ready(function () {
+            const userId = sessionStorage.getItem('userId');
+            const qcmId = sessionStorage.getItem('qcmId');
+
+            // Fonction pour construire et afficher les questions dans le formulaire
+            function displayQuestions(questions) {
+                questions.forEach(function (question, index) {
+                    // Construction de l'élément HTML pour afficher la question
+                    const questionHtml = `
+                        <div class="grid-container">
+                            <div class="grid-item question">
+                                ${index + 1}
+                                <p id="question${index + 1}">${question}</p>
+                            </div>
+                            <div class="grid-item bleu">
+                                <input type="radio" id="${index + 1}A" name="${index + 1}" value="A" />
+                                <label for="${index + 1}A">A</label>
+                            </div>
+                            <!-- Ajoutez ici les balises HTML pour les autres réponses (B, C, D) -->
+                        </div>
+                        <br>
+                    `;
+                    // Ajout de l'élément HTML dans le formulaire
+                    $('#corps').append(questionHtml);
+                });
+            }
+
+            // Requête AJAX pour récupérer les données du quiz depuis le serveur
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:3002/data',
+                success: function (data) {
+                    displayQuestions(data); // Affichage des questions sur la page
+                },
+                error: function (xhr, status, error) {
+                    console.error('Erreur lors de la récupération des données:', error);
+                }
+            });
+
+            // Traitement du formulaire lors de la soumission
+            $("#myForm").submit(function (event) {
+                event.preventDefault(); // Empêche le rechargement de la page
+                const formData = $("#myForm").serialize(); // Conversion du formulaire en JSON
+                // Envoi de la réponse au serveur via AJAX
+                $.ajax({
+                    url: "http://127.0.0.1/login_quizz",
+                    type: "POST",
+                    data: formData,
+                    success: function (response) {
+                        console.log("Formulaire envoyé avec succès:", formData);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Erreur lors de l'envoi du formulaire:", error);
+                        $('#espace').html(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
