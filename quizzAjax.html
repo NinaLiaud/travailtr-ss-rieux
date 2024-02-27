@@ -24,6 +24,7 @@
 
                 <div class="grid-item question">
                     1
+                    <p id="question1"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -53,6 +54,7 @@
 
                 <div class="grid-item question">
                     2
+                    <p id="question2"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -82,6 +84,7 @@
 
                 <div class="grid-item question">
                     3
+                    <p id="question3"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -111,6 +114,7 @@
 
                 <div class="grid-item question">
                     4
+                    <p id="question4"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -140,6 +144,7 @@
 
                 <div class="grid-item question">
                     5
+                    <p id="question5"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -169,6 +174,7 @@
 
                 <div class="grid-item question">
                     6
+                    <p id="question6"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -198,6 +204,7 @@
 
                 <div class="grid-item question">
                     7
+                    <p id="question7"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -227,6 +234,7 @@
 
                 <div class="grid-item question">
                     8
+                    <p id="question8"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -256,6 +264,7 @@
 
                 <div class="grid-item question">
                     9
+                    <p id="question9"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -285,6 +294,7 @@
 
                 <div class="grid-item question">
                     10
+                    <p id="question10"></p>
                 </div>
 
                 <div class="grid-item bleu">
@@ -317,6 +327,9 @@
 
     <script>
         $(document).ready(function () {
+            const userId = sessionStorage.getItem('userId');
+            const qcmId = sessionStorage.getItem('qcmId');
+
             $("#myForm").submit(function (event) {
                 event.preventDefault(); //  J’empêche la page de reaload comme c’est normalement le cas sur un submit
 
@@ -340,18 +353,17 @@
                 });
             });
             $.ajax({
-                url: 'http://127.0.0.1/login_quizz',
                 type: 'GET',
-                dataType: 'json',
+                url: 'http://localhost:3002/data', // Endpoint où les données sont récupérées depuis le serveur
                 success: function (data) {
-                    console.log("reception successful")
-                    var message = data.message;
-                    $('#espace').html(
-                        message);
+                    // Manipulation des données reçues
+                    data.forEach(function (question, index) {
+                        // Insérez chaque question dans la balise HTML correspondante sur votre page
+                        $('#question' + (index + 1)).text(question); // Supposons que vos balises de questions sont identifiées par un id tel que question1, question2, etc.
+                    });
                 },
                 error: function (xhr, status, error) {
-                    $('#espace').html(
-                        xhr.responseText);
+                    console.error('Erreur lors de la récupération des données:', error);
                 }
             });
         });

@@ -85,6 +85,21 @@ app.post('/signIn', (req, res) => {
     });
 });
 
+app.get('/data', (req, res) => {
+    // Récupérez l'`idUser` et l'`idQcmName` de la session
+    const idUser = req.session.userId; // Assurez-vous d'avoir configuré la gestion de session dans votre application Express.js
+    const idQcmName = req.session.qcmId; // Assurez-vous de stocker idQcmName dans la session après que l'utilisateur ait sélectionné un QCM
+
+    // Utilisez ces valeurs dans votre requête SQL
+    db.query('SELECT question FROM js WHERE idUser = ? AND idQcmName = ?', [idUser, idQcmName], (error, results) => {
+        if (error) {
+            res.status(500).json({ error: 'Erreur lors de la récupération des données' });
+        } else {
+            res.json(results); // Envoyez les données au format JSON
+        }
+    });
+});
+
 
 app.listen(port, () => {
     console.log(`Express server listening at http://localhost:${port}`);
