@@ -64,14 +64,9 @@
                 $.ajax({
                     url: 'http://localhost:3002',
                     type: 'POST',
-<<<<<<< HEAD
-                    dataType: 'text',
-                    data: {
-=======
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify({
->>>>>>> 1cc6e5d79830ff64a31a987dbf672b168f4ddfab
                         question: $('#question').val(),
                         A: $("#A").val(),
                         B: $("#B").val(),
@@ -106,7 +101,7 @@
             });
         });
 
-        /*$('#ajaxButton').click(function () {
+        $('#ajaxButton').click(function () {
             let compteur = parseInt(localStorage.getItem('compteur'), 10) || 1;
 
             // Incrémente le compteur
@@ -128,7 +123,7 @@
 
 
             }
-        });*/
+        });
 
     </script>
 
