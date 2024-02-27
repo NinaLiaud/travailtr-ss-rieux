@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Sign in</title>
+    <link rel="stylesheet" href="css/style_signUp.css" />
+</head>
+
+<body>
+    <h1>Sign In</h1>
+
+    <div class="grid-container">
+
+        <div class="grid-item">
+            <label for="email">* email</label><br>
+            <input type="email" class="rond" id="email" name="email" required />
+        </div>
+
+        <div class="grid-item">
+            <label for="mdp">* mot de passe</label><br>
+            <input type="password" class="rond" id="mdp" name="mdp" />
+        </div>
+
+        <input class="grid-item" id="ajaxButton" type="submit" value="Sign In!">
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#ajaxButton").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3002/signIn",
+                    data: {
+                        email: $("#email").val(),
+                        mdp: $("#mdp").val()
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            var userId = response.userId;
+                            var nom = response.nom;
+                            var prenom = response.prenom;
+                            window.location.href = '/acceuil.html?userId=' + userId + '&nom=' + nom + '&prenom=' + prenom;
+                        } else {
+                            window.location.href = '/signUp.html';
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Pour les erreurs HTTP autres que 200 (par exemple, 500, 404, 401)
+                        alert("INCORRECT PASSWORD !!! ");
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

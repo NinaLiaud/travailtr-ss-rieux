@@ -1,0 +1,49 @@
+body {
+    background-image: url("../css/test7.jpg");
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+.grid-container {
+
+    margin: auto;
+    background-color: rgba(40, 111, 216, 0.597);
+    padding: 15px;
+    width: 30%;
+    height: 500px;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+}
+
+.rond {
+    border-radius: 20px;
+    border-color: rgba(67, 98, 221, 0.393);
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.rond:hover {
+    border: 3px solid rgba(19, 66, 197, 0.755);
+}
+
+.rond:focus {
+    border: 3px solid rgba(19, 66, 197, 0.755);
+    outline: none;
+}
+
+.grid-item {
+    margin: auto;
+}
+
+label {
+    color: rgb(255, 255, 255);
+}
+
+input {
+    color: rgb(54, 54, 122);
+}
