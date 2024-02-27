@@ -61,7 +61,7 @@
                 $.ajax({
                     url: 'http://localhost:3002',
                     type: 'POST',
-                    dataType: 'json',
+                    dataType: 'text',
                     data: {
                         question: $('#question').val(),
                         A: $("#A").val(),
@@ -95,7 +95,7 @@
             });
         });
 
-        $('#ajaxButton').click(function () {
+        /*$('#ajaxButton').click(function () {
             let compteur = parseInt(localStorage.getItem('compteur'), 10) || 1;
 
             // Incrémente le compteur
@@ -117,7 +117,7 @@
 
 
             }
-        });
+        });*/
 
     </script>
 
