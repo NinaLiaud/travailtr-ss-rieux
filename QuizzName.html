@@ -27,7 +27,7 @@
                 $.ajax({
                     url: 'http://localhost:3002/addQuizz',
                     type: 'POST',
-                    dataType: 'json', // Assume que le serveur renvoie du JSON
+                    dataType: 'json', 
                     contentType: 'application/json',
                     data: JSON.stringify({
                         qname: $('#qname').val()

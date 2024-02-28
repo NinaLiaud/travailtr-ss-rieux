@@ -86,13 +86,13 @@
             $("#ajaxButton").click(function (e) {
             $.ajax({
                 type: "POST",
-                url: "http://127.0.0.1/submit_quizz.php", // L'URL du script PHP sur votre serveur
+                url: "http://127.0.0.1/submit_quizz.php", 
                 data: {
                     bonneRep: $("#bonneRep").val(),
                     qcmId: qcmId
                 },
                 success: function (response) {
-                    // Vous pouvez afficher un message de succès ou effectuer une action ici
+                    
                     console.log("Données enregistrées avec succès: " + response);
                 },
                 error: function () {
@@ -105,22 +105,22 @@
         $('#ajaxButton').click(function () {
             let compteur = parseInt(localStorage.getItem('compteur'), 10) || 1;
 
-            // Incrémente le compteur
+            
             compteur++;
 
-            // Sauvegarde la nouvelle valeur du compteur dans le localStorage
+            
             localStorage.setItem('compteur', compteur);
 
-            // Met à jour le compteur sur la page
+            
             document.getElementById('compteur').textContent = compteur;
 
-            // Vérifie si le compteur a atteint 10
+            
             if (compteur > 10) {
                 compteur = 0;
                 localStorage.setItem('compteur', compteur);
 
-                // Redirige vers une autre page
-                window.location.href = 'quizzAjax.html'; // Remplacez 'autrePage.html' par l'URL de votre choix
+                
+                window.location.href = 'quizzAjax.html'; 
 
 
             }

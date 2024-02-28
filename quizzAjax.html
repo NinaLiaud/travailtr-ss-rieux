@@ -21,7 +21,6 @@
     <div>
         <label for="qcmSelect">Select a QCM:</label>
         <select id="qcmSelect" name="qcmSelect">
-            <!-- QCM options will be dynamically populated from the server -->
         </select>
     </div>
     <form id="myForm">
@@ -346,30 +345,29 @@
             const userId = sessionStorage.getItem('userId');
             const qcmId = sessionStorage.getItem('qcmId');
 
-            // Capturer les réponses de l'utilisateur à partir du formulaire
             function submitForm() {
                 event.preventDefault();
-                // Récupération des réponses
+                
                 var answers = {};
                 for (var i = 1; i <= 10; i++) {
                     var selectedOption = document.querySelector('input[name="' + i + '"]:checked');
                     if (selectedOption) {
                         answers[i] = selectedOption.value;
                     } else {
-                        answers[i] = ''; // Ou une autre valeur pour indiquer que la réponse n'a pas été fournie
+                        answers[i] = ''; 
                     }
                 }
 
-            // Envoi des réponses au backend via AJAX avec jQuery
+            
             $.ajax({
-                url: "http://127.0.0.1/submit2.php", // Remplacez par le chemin correct vers votre script PHP
+                url: "http://127.0.0.1/submit2.php", 
                 type: "POST",
                 data: { answers: JSON.stringify(answers) },
                 dataType: "json",
                 success: function (response) {
-                    // Traiter la réponse du serveur
+                    
                     console.log(response);
-                    // Vous pouvez ici mettre à jour l'interface utilisateur avec les résultats
+                    
                     for (var key in response) {
                         if (response.hasOwnProperty(key)) {
                             var resultText = response[key] ? "Bonne réponse!" : "Mauvaise réponse.";
@@ -384,15 +382,15 @@
             }
 
 
-            // Fonction pour charger les questions associées au QCM sélectionné
+            
             function loadQuestions(qcmId) {
-                // Faire une requête AJAX au serveur pour obtenir les questions du QCM
+                
                 $.ajax({
-                    url: `http://localhost:3002/getQuestions?qcmId=${qcmId}`, // Remplacez cette URL par l'endpoint approprié sur votre serveur
+                    url: `http://localhost:3002/getQuestions?qcmId=${qcmId}`, 
                     type: 'GET',
                     dataType: 'json',
                     success: function (data) {
-                        // Mettre à jour le formulaire avec les questions obtenues
+                        
                         for (let i = 1; i <= 10; i++) {
                             $(`#question${i}`).text(data[`question${i}`]);
                             $(`#${i}A`).next().text(data[`question${i}A`]);

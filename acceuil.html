@@ -16,15 +16,15 @@
     <a href="quizzAjax.html">MES QUIZZ</a>
     <script>
         $(document).ready(function () {
-            // Récupère les paramètres de l'URL
+            
             const params = new URLSearchParams(window.location.search);
 
-            // Récupère les valeurs des paramètres
+            
             const userId = params.get('userId');
             const nom = params.get('nom');
             const prenom = params.get('prenom');
 
-            // Utilise les valeurs pour afficher les données de l'utilisateur sur la page
+            
             $("#nom").text(nom);
             $("#prenom").text(prenom);
             sessionStorage.setItem('userId', userId);

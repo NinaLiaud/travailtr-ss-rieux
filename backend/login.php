@@ -3,13 +3,13 @@ include 'db_connect.php';
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-// Les réponses de l'utilisateur, probablement envoyées via AJAX
-$userResponses = $_POST['userResponses']; // ['Réponse1', 'Réponse2', ...]
-$qcmId = $_POST['qcmId']; // L'identifiant du QCM
+
+$userResponses = $_POST['userResponses']; 
+$qcmId = $_POST['qcmId']; 
 
 
-// Récupérer toutes les bonnes réponses pour le qcmId donné
-$stmt = $conn->prepare("SELECT bonneRep FROM feur WHERE qcmId = ? ORDER BY id ASC"); // Assumer que vous avez un champ 'id' pour ordonner ou un autre critère d'ordre
+
+$stmt = $conn->prepare("SELECT bonneRep FROM feur WHERE qcmId = ? ORDER BY id ASC");
 $stmt->bind_param("i", $qcmId);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -19,10 +19,10 @@ while ($row = $result->fetch_assoc()) {
     $correctAnswers[] = $row['bonneRep'];
 }
 
-// Comparer les réponses de l'utilisateur avec les réponses correctes
+
 foreach ($userResponses as $index => $userResponse) {
     if (isset($correctAnswers[$index])) {
-        // Compare la réponse de l'utilisateur avec la réponse correcte à l'index correspondant
+        
         if ($correctAnswers[$index] == $userResponse) {
             echo "vrai<br>";
         } else {

@@ -11,7 +11,7 @@ console.log("Bonjour init");
 
 app.use(express.json());
 
-app.use(cors()); // Permet l’accès à tous le monde
+app.use(cors()); 
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -36,7 +36,7 @@ app.post('/addQuizz', (req, res) => {
             return res.status(500).send('Erreur lors de l\'insertion du QCM');
         }
         const qcmId = results.insertId;
-        res.status(201).json({ success: true, qcmId: qcmId }); // Renvoyer l'ID du QCM nouvellement créé
+        res.status(201).json({ success: true, qcmId: qcmId }); 
     });
 });
 
@@ -49,8 +49,8 @@ app.post('/', (req, res) => {
         B: req.body.B,
         C: req.body.C,
         D: req.body.D,
-        userId: req.body.userId, // Assurez-vous que userId est passé dans le corps de la requête
-        qcmId: req.body.qcmId // Assurez-vous que qcmId est aussi passé dans le corps de la requête
+        userId: req.body.userId, 
+        qcmId: req.body.qcmId 
     };
     const sql = 'INSERT INTO js (question, A, B, C, D, idUser, idQcmName) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
@@ -87,7 +87,7 @@ app.post('/signIn', (req, res) => {
 
 
 app.get('/qcmList', (req, res) => {
-    const sql = 'SELECT id, QcmName FROM qcm'; // No need to alias 'QcmName' as 'name' in this case
+    const sql = 'SELECT id, QcmName FROM qcm'; 
 
     db.query(sql, (error, results) => {
         if (error) {
@@ -105,19 +105,19 @@ app.listen(port, () => {
 app.get('/getQuestions', (req, res) => {
     const selectedQcmId = req.query.qcmId;
 
-    // Requête SQL pour récupérer les questions associées à ce QCM
+
     const sql = `SELECT * FROM js WHERE idQcmName = ?`;
 
-    // Exécution de la requête
+  
     db.query(sql, [selectedQcmId], (err, results) => {
         if (err) {
             console.error('Erreur lors du chargement des questions:', err);
             res.status(500).json({ error: 'Erreur lors du chargement des questions' });
         } else {
-            // Organiser les questions dans un objet pour les renvoyer au client
+            
             const questionsData = {};
             results.forEach((question, index) => {
-                // Utiliser index + 1 pour commencer à partir de 1
+                
                 questionsData[`question${index + 1}`] = question.question;
                 questionsData[`question${index + 1}A`] = question.A;
                 questionsData[`question${index + 1}B`] = question.B;

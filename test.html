@@ -338,15 +338,15 @@
             loadQuestions(selectedQcmId);
         });
 
-    // Fonction pour charger les questions associées au QCM sélectionné
+    
         function loadQuestions(qcmId) {
-        // Faire une requête AJAX au serveur pour obtenir les questions du QCM
+     
             $.ajax({
-                url: `http://localhost:3002/getQuestions?qcmId=${qcmId}`, // Remplacez cette URL par l'endpoint approprié sur votre serveur
+                url: `http://localhost:3002/getQuestions?qcmId=${qcmId}`, 
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                // Mettre à jour le formulaire avec les questions obtenues
+                
                     for (let i = 1; i <= 10; i++) {
                         $(`#question${i}`).text(data[`question${i}`]);
                     }
@@ -360,11 +360,11 @@
                 type: 'GET',
                 url: 'http://localhost:3002/qcmList',
                 success: function (qcmList) {
-                // Populate the dropdown with QCM options
+                
                     qcmList.forEach(function (qcm) {
                         $('#qcmSelect').append($('<option>', {
                             value: qcm.id,
-                            text: qcm.QcmName // Adjust to match the actual property name in your QCM object
+                            text: qcm.QcmName 
                         }));
                     });
                 },
