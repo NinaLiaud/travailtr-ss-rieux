@@ -24,9 +24,9 @@ foreach ($userResponses as $index => $userResponse) {
     if (isset($correctAnswers[$index])) {
         // Compare la réponse de l'utilisateur avec la réponse correcte à l'index correspondant
         if ($correctAnswers[$index] == $userResponse) {
-            echo "Réponse à la question " . ($index + 1) . " : vrai<br>";
+            echo "vrai<br>";
         } else {
-            echo "Réponse à la question " . ($index + 1) . " : faux<br>";
+            echo "faux<br>";
         }
     } else {
         echo "Pas de réponse correcte trouvée pour la question " . ($index + 1) . "<br>";
