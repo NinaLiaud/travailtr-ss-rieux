@@ -3,20 +3,42 @@ include 'db_connect.php';
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-$question1 = htmlspecialchars($_POST['1']);
-/*$question2 = htmlspecialchars($_POST['2']);
-$question3 = htmlspecialchars($_POST['3']);
-$question4 = htmlspecialchars($_POST['4']);
-$question5 = htmlspecialchars($_POST['5']);
-$question6 = htmlspecialchars($_POST['6']);
-$question7 = htmlspecialchars($_POST['7']);
-$question8 = htmlspecialchars($_POST['8']);
-$question9 = htmlspecialchars($_POST['9']);
-$question10 = htmlspecialchars($_POST['10']);
-*/
+// Les réponses de l'utilisateur, probablement envoyées via AJAX
+$userResponses = $_POST['userResponses']; // ['Réponse1', 'Réponse2', ...]
+$qcmId = $_POST['qcmId']; // L'identifiant du QCM
 
 
-$sql = "SELECT * FROM feur WHERE id = 1 AND bonneRep ='$question1'";
+// Récupérer toutes les bonnes réponses pour le qcmId donné
+$stmt = $conn->prepare("SELECT bonneRep FROM feur WHERE qcmId = ? ORDER BY id ASC"); // Assumer que vous avez un champ 'id' pour ordonner ou un autre critère d'ordre
+$stmt->bind_param("i", $qcmId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$correctAnswers = [];
+while ($row = $result->fetch_assoc()) {
+    $correctAnswers[] = $row['bonneRep'];
+}
+
+// Comparer les réponses de l'utilisateur avec les réponses correctes
+foreach ($userResponses as $index => $userResponse) {
+    if (isset($correctAnswers[$index])) {
+        // Compare la réponse de l'utilisateur avec la réponse correcte à l'index correspondant
+        if ($correctAnswers[$index] == $userResponse) {
+            echo "Réponse à la question " . ($index + 1) . " : vrai<br>";
+        } else {
+            echo "Réponse à la question " . ($index + 1) . " : faux<br>";
+        }
+    } else {
+        echo "Pas de réponse correcte trouvée pour la question " . ($index + 1) . "<br>";
+    }
+}
+
+$stmt->close();
+$conn->close();
+
+
+
+/*$sql = "SELECT * FROM feur WHERE id = 1 AND bonneRep ='$question1'";
 
 $result = mysqli_query($conn, $sql);
 
@@ -33,6 +55,6 @@ if (mysqli_num_rows($result) > 0) {
         'success' => true
     ];
 }
-
+*/
 
 echo json_encode($responseData);

@@ -335,15 +335,47 @@
         $(document).ready(function () {
             const userId = sessionStorage.getItem('userId');
             const qcmId = sessionStorage.getItem('qcmId');
-               // Fonction pour charger les questions associées au QCM sélectionné
+
+            // Exemple de réponses de l'utilisateur sous forme d'objet
+            // Clé = numéro de la question, valeur = réponse de l'utilisateur
+            var userResponses = {
+                1: 'Réponse1',
+                2: 'Réponse2',
+                // Continuez selon le nombre de questions
+            };
+
+            // L'identifiant du QCM
+            var qcmId = 'IdentifiantDuQCM';
+
+            // Préparation des données à envoyer
+            var dataToSend = {
+                userResponses: Object.values(userResponses), // Convertit les réponses en tableau
+                qcmId: qcmId
+            };
+
+            $.ajax({
+                url: "votre_endpoint_de_traitement.php", // Remplacez par l'URL de votre script PHP
+                type: "POST",
+                data: dataToSend,
+                success: function (response) {
+                    // Traiter la réponse du serveur
+                    console.log(response);
+                    // Vous pouvez ici mettre à jour l'interface utilisateur avec les résultats
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erreur lors de l'envoi des réponses: ", error);
+                }
+            });
+
+            // Fonction pour charger les questions associées au QCM sélectionné
             function loadQuestions(qcmId) {
-            // Faire une requête AJAX au serveur pour obtenir les questions du QCM
+                // Faire une requête AJAX au serveur pour obtenir les questions du QCM
                 $.ajax({
                     url: `http://localhost:3002/getQuestions?qcmId=${qcmId}`, // Remplacez cette URL par l'endpoint approprié sur votre serveur
                     type: 'GET',
                     dataType: 'json',
                     success: function (data) {
-                    // Mettre à jour le formulaire avec les questions obtenues
+                        // Mettre à jour le formulaire avec les questions obtenues
                         for (let i = 1; i <= 10; i++) {
                             $(`#question${i}`).text(data[`question${i}`]);
                             $(`#${i}A`).next().text(data[`question${i}A`]);
@@ -358,39 +390,39 @@
                 });
             }
             $('#qcmSelect').change(function () {
-            const selectedQcmId = $(this).val();
-            loadQuestions(selectedQcmId);
-            });
-                $.ajax({
-                    url: "http://127.0.0.1/login_quizz",
-                    type: "POST",
-                    data: formData,
-                    success: function (response) {
-                        console.log("Mon form sent " + formData)
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Mon form sent " + formData)
-                        console.log(xhr)
-                        $('#espace').html(
-                            xhr.responseText);
-                    }
-                });
+                const selectedQcmId = $(this).val();
+                loadQuestions(selectedQcmId);
             });
             $.ajax({
-                type: 'GET',
-                url: 'http://localhost:3002/qcmList',
-                success: function (qcmList) {
-                    qcmList.forEach(function (qcm) {
-                        $('#qcmSelect').append($('<option>', {
-                            value: qcm.id,
-                            text: qcm.QcmName
-                        }));
-                    });
+                url: "http://127.0.0.1/login_quizz",
+                type: "POST",
+                data: formData,
+                success: function (response) {
+                    console.log("Mon form sent " + formData)
                 },
                 error: function (xhr, status, error) {
-                    console.error('Error fetching QCM list:', error);
-                    }
+                    console.log("Mon form sent " + formData)
+                    console.log(xhr)
+                    $('#espace').html(
+                        xhr.responseText);
+                }
             });
+        });
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3002/qcmList',
+            success: function (qcmList) {
+                qcmList.forEach(function (qcm) {
+                    $('#qcmSelect').append($('<option>', {
+                        value: qcm.id,
+                        text: qcm.QcmName
+                    }));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching QCM list:', error);
+            }
+        });
 
     </script>
 
