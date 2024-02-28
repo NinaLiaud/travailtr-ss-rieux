@@ -31,6 +31,7 @@
                 <div class="grid-item question">
                     1
                     <p id="question1"></p>
+                    <div id="question1Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -61,6 +62,7 @@
                 <div class="grid-item question">
                     2
                     <p id="question2"></p>
+                    <div id="question2Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -91,6 +93,7 @@
                 <div class="grid-item question">
                     3
                     <p id="question3"></p>
+                    <div id="question3Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -121,6 +124,7 @@
                 <div class="grid-item question">
                     4
                     <p id="question4"></p>
+                    <div id="question4Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -151,6 +155,7 @@
                 <div class="grid-item question">
                     5
                     <p id="question5"></p>
+                    <div id="question5Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -181,6 +186,7 @@
                 <div class="grid-item question">
                     6
                     <p id="question6"></p>
+                    <div id="question6Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -211,6 +217,7 @@
                 <div class="grid-item question">
                     7
                     <p id="question7"></p>
+                    <div id="question7Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -241,6 +248,7 @@
                 <div class="grid-item question">
                     8
                     <p id="question8"></p>
+                    <div id="question8Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -271,6 +279,7 @@
                 <div class="grid-item question">
                     9
                     <p id="question9"></p>
+                    <div id="question9Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -301,6 +310,7 @@
                 <div class="grid-item question">
                     10
                     <p id="question10"></p>
+                    <div id="question10Result"></div>
                 </div>
 
                 <div class="grid-item bleu">
@@ -336,41 +346,43 @@
             const userId = sessionStorage.getItem('userId');
             const qcmId = sessionStorage.getItem('qcmId');
 
-            // Exemple de réponses de l'utilisateur sous forme d'objet
-            // Clé = numéro de la question, valeur = réponse de l'utilisateur
-            var userResponses = {
-                1: 'Réponse1',
-                2: 'Réponse2',
-                3: 'Réponse3',
-                4: 'Réponse4',
-                5: 'Réponse5',
-                6: 'Réponse6',
-                7: 'Réponse7',
-                8: 'Réponse8',
-                9: 'Réponse9',
-                10: 'Réponse10'
-                // Continuez selon le nombre de questions
-            };
+            // Capturer les réponses de l'utilisateur à partir du formulaire
+            function submitForm() {
+                event.preventDefault();
+                // Récupération des réponses
+                var answers = {};
+                for (var i = 1; i <= 10; i++) {
+                    var selectedOption = document.querySelector('input[name="' + i + '"]:checked');
+                    if (selectedOption) {
+                        answers[i] = selectedOption.value;
+                    } else {
+                        answers[i] = ''; // Ou une autre valeur pour indiquer que la réponse n'a pas été fournie
+                    }
+                }
 
-            // Préparation des données à envoyer
-            var dataToSend = {
-                userResponses: Object.values(userResponses), // Convertit les réponses en tableau
-                qcmId: qcmId
-            };
-
+            // Envoi des réponses au backend via AJAX avec jQuery
             $.ajax({
-                url: "http://127.0.0.1/login.php", // Remplacez par l'URL de votre script PHP
+                url: "http://127.0.0.1/submit2.php", // Remplacez par le chemin correct vers votre script PHP
                 type: "POST",
-                data: dataToSend,
+                data: { answers: JSON.stringify(answers) },
+                dataType: "json",
                 success: function (response) {
                     // Traiter la réponse du serveur
                     console.log(response);
                     // Vous pouvez ici mettre à jour l'interface utilisateur avec les résultats
+                    for (var key in response) {
+                        if (response.hasOwnProperty(key)) {
+                            var resultText = response[key] ? "Bonne réponse!" : "Mauvaise réponse.";
+                            $("#question" + key + "Result").html(resultText);
+                        }
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error("Erreur lors de l'envoi des réponses: ", error);
                 }
             });
+            }
+
 
             // Fonction pour charger les questions associées au QCM sélectionné
             function loadQuestions(qcmId) {
@@ -398,22 +410,10 @@
                 const selectedQcmId = $(this).val();
                 loadQuestions(selectedQcmId);
             });
-            $.ajax({
-                url: "http://127.0.0.1/login_quizz",
-                type: "POST",
-                data: formData,
-                success: function (response) {
-                    console.log("Mon form sent " + formData)
-                },
-                error: function (xhr, status, error) {
-                    console.log("Mon form sent " + formData)
-                    console.log(xhr)
-                    $('#espace').html(
-                        xhr.responseText);
-                }
+            $('#ajaxButton').click(function (event) {
+            submitForm(event);
             });
-        });
-        $.ajax({
+            $.ajax({
             type: 'GET',
             url: 'http://localhost:3002/qcmList',
             success: function (qcmList) {
@@ -427,6 +427,7 @@
             error: function (xhr, status, error) {
                 console.error('Error fetching QCM list:', error);
             }
+        });
         });
 
     </script>
