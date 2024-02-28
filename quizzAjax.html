@@ -341,11 +341,16 @@
             var userResponses = {
                 1: 'Réponse1',
                 2: 'Réponse2',
+                3: 'Réponse3',
+                4: 'Réponse4',
+                5: 'Réponse5',
+                6: 'Réponse6',
+                7: 'Réponse7',
+                8: 'Réponse8',
+                9: 'Réponse9',
+                10: 'Réponse10'
                 // Continuez selon le nombre de questions
             };
-
-            // L'identifiant du QCM
-            var qcmId = 'IdentifiantDuQCM';
 
             // Préparation des données à envoyer
             var dataToSend = {
@@ -354,7 +359,7 @@
             };
 
             $.ajax({
-                url: "votre_endpoint_de_traitement.php", // Remplacez par l'URL de votre script PHP
+                url: "http://127.0.0.1/login.php", // Remplacez par l'URL de votre script PHP
                 type: "POST",
                 data: dataToSend,
                 success: function (response) {
