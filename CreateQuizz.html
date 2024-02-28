@@ -83,13 +83,13 @@
                     }
                 });
             });
-        });
-        $("#ajaxButton").click(function (e) {
+            $("#ajaxButton").click(function (e) {
             $.ajax({
                 type: "POST",
                 url: "http://127.0.0.1/submit_quizz.php", // L'URL du script PHP sur votre serveur
                 data: {
-                    bonneRep: $("#bonneRep").val()
+                    bonneRep: $("#bonneRep").val(),
+                    qcmId: qcmId
                 },
                 success: function (response) {
                     // Vous pouvez afficher un message de succès ou effectuer une action ici
@@ -99,6 +99,7 @@
                     console.log("Une erreur est survenue");
                 }
             });
+        });
         });
 
         $('#ajaxButton').click(function () {

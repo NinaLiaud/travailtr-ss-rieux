@@ -361,7 +361,6 @@
             const selectedQcmId = $(this).val();
             loadQuestions(selectedQcmId);
             });
-                // Send AJAX POST request with form data
                 $.ajax({
                     url: "http://127.0.0.1/login_quizz",
                     type: "POST",
@@ -381,11 +380,10 @@
                 type: 'GET',
                 url: 'http://localhost:3002/qcmList',
                 success: function (qcmList) {
-                // Populate the dropdown with QCM options
                     qcmList.forEach(function (qcm) {
                         $('#qcmSelect').append($('<option>', {
                             value: qcm.id,
-                            text: qcm.QcmName // Adjust to match the actual property name in your QCM object
+                            text: qcm.QcmName
                         }));
                     });
                 },
