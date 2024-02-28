@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
     <header id="accueil">
         <div>
             <h1>QUIZZ AJAX</h1>
@@ -17,76 +18,364 @@
             <h4>xx/xx/2024</h4>
         </div>
     </header>
+    <div>
+        <label for="qcmSelect">Select a QCM:</label>
+        <select id="qcmSelect" name="qcmSelect">
+            <!-- QCM options will be dynamically populated from the server -->
+        </select>
+    </div>
     <form id="myForm">
         <div id="corps">
-            <!-- Les balises HTML pour afficher les questions du quiz -->
-            <!-- Assurez-vous d'avoir correctement configuré le nombre de questions -->
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    1
+                    <p id="question1"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="1A" name="1" value="A" />
+                    <label for="1A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="1B" name="1" value="B" />
+                    <label for="1B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="1C" name="1" value="C" />
+                    <label for="1C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="1D" name="1" value="D" />
+                    <label for="1D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    2
+                    <p id="question2"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="2A" name="2" value="A" />
+                    <label for="2A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="2B" name="2" value="B" />
+                    <label for="2B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="2C" name="2" value="C" />
+                    <label for="2C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="2D" name="2" value="D" />
+                    <label for="2D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    3
+                    <p id="question3"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="3A" name="3" value="A" />
+                    <label for="3A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="3B" name="3" value="B" />
+                    <label for="3B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="3C" name="3" value="C" />
+                    <label for="3C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="3D" name="3" value="D" />
+                    <label for="3D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    4
+                    <p id="question4"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="4A" name="4" value="A" />
+                    <label for="4A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="4B" name="4" value="B" />
+                    <label for="4B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="4C" name="4" value="C" />
+                    <label for="4C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="4D" name="4" value="D" />
+                    <label for="4D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container" t>
+
+                <div class="grid-item question">
+                    5
+                    <p id="question5"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="5A" name="5" value="A" />
+                    <label for="5A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="5B" name="5" value="B" />
+                    <label for="5B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="5C" name="5" value="C" />
+                    <label for="5C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="5D" name="5" value="D" />
+                    <label for="5D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    6
+                    <p id="question6"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="6A" name="6" value="A" />
+                    <label for="6A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="6B" name="6" value="B" />
+                    <label for="6B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="6C" name="6" value="C" />
+                    <label for="6C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="6D" name="6" value="D" />
+                    <label for="6D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    7
+                    <p id="question7"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="7A" name="7" value="A" />
+                    <label for="7A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="7B" name="7" value="B" />
+                    <label for="7B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="7C" name="7" value="C" />
+                    <label for="7C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="7D" name="7" value="D" />
+                    <label for="7D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    8
+                    <p id="question8"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="8A" name="8" value="A" />
+                    <label for="8A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="8B" name="8" value="B" />
+                    <label for="8B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="8C" name="8" value="C" />
+                    <label for="8C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="8D" name="8" value="D" />
+                    <label for="8D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    9
+                    <p id="question9"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="9A" name="9" value="A" />
+                    <label for="9A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="9B" name="9" value="B" />
+                    <label for="9B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="9C" name="9" value="C" />
+                    <label for="9C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="9D" name="9" value="D" />
+                    <label for="9D">D</label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid-container">
+
+                <div class="grid-item question">
+                    10
+                    <p id="question10"></p>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="10A" name="10" value="A" />
+                    <label for="10A">A</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="10B" name="10" value="B" />
+                    <label for="10B">B</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="10C" name="10" value="C" />
+                    <label for="10C">C</label>
+                </div>
+
+                <div class="grid-item bleu">
+                    <input type="radio" id="10D" name="10" value="D" />
+                    <label for="10D">D</label>
+                </div>
+            </div>
+
+            <br>
+            <input id="ajaxButton" type="submit" value="Valider la réponse">
+            <div id="espace"></div>
         </div>
-        <br>
-        <input id="ajaxButton" type="submit" value="Valider la réponse">
-        <div id="espace"></div>
     </form>
+
 
     <script>
         $(document).ready(function () {
-            const userId = sessionStorage.getItem('userId');
-            const qcmId = sessionStorage.getItem('qcmId');
+            $('#qcmSelect').change(function () {
+            const selectedQcmId = $(this).val();
+            loadQuestions(selectedQcmId);
+        });
 
-            // Fonction pour construire et afficher les questions dans le formulaire
-            function displayQuestions(questions) {
-                questions.forEach(function (question, index) {
-                    // Construction de l'élément HTML pour afficher la question
-                    const questionHtml = `
-                        <div class="grid-container">
-                            <div class="grid-item question">
-                                ${index + 1}
-                                <p id="question${index + 1}">${question}</p>
-                            </div>
-                            <div class="grid-item bleu">
-                                <input type="radio" id="${index + 1}A" name="${index + 1}" value="A" />
-                                <label for="${index + 1}A">A</label>
-                            </div>
-                            <!-- Ajoutez ici les balises HTML pour les autres réponses (B, C, D) -->
-                        </div>
-                        <br>
-                    `;
-                    // Ajout de l'élément HTML dans le formulaire
-                    $('#corps').append(questionHtml);
-                });
-            }
-
-            // Requête AJAX pour récupérer les données du quiz depuis le serveur
+    // Fonction pour charger les questions associées au QCM sélectionné
+        function loadQuestions(qcmId) {
+        // Faire une requête AJAX au serveur pour obtenir les questions du QCM
             $.ajax({
+                url: `http://localhost:3002/getQuestions?qcmId=${qcmId}`, // Remplacez cette URL par l'endpoint approprié sur votre serveur
                 type: 'GET',
-                url: 'http://localhost:3002/data',
+                dataType: 'json',
                 success: function (data) {
-                    displayQuestions(data); // Affichage des questions sur la page
+                // Mettre à jour le formulaire avec les questions obtenues
+                    for (let i = 1; i <= 10; i++) {
+                        $(`#question${i}`).text(data[`question${i}`]);
+                    }
                 },
-                error: function (xhr, status, error) {
-                    console.error('Erreur lors de la récupération des données:', error);
+                error: function (error) {
+                    console.error('Erreur lors du chargement des questions:', error);
                 }
             });
-
-            // Traitement du formulaire lors de la soumission
-            $("#myForm").submit(function (event) {
-                event.preventDefault(); // Empêche le rechargement de la page
-                const formData = $("#myForm").serialize(); // Conversion du formulaire en JSON
-                // Envoi de la réponse au serveur via AJAX
-                $.ajax({
-                    url: "http://127.0.0.1/login_quizz",
-                    type: "POST",
-                    data: formData,
-                    success: function (response) {
-                        console.log("Formulaire envoyé avec succès:", formData);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Erreur lors de l'envoi du formulaire:", error);
-                        $('#espace').html(xhr.responseText);
+        }
+        $.ajax({
+                type: 'GET',
+                url: 'http://localhost:3002/qcmList',
+                success: function (qcmList) {
+                // Populate the dropdown with QCM options
+                    qcmList.forEach(function (qcm) {
+                        $('#qcmSelect').append($('<option>', {
+                            value: qcm.id,
+                            text: qcm.QcmName // Adjust to match the actual property name in your QCM object
+                        }));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching QCM list:', error);
                     }
-                });
             });
         });
     </script>
+
+
 </body>
 
 </html>

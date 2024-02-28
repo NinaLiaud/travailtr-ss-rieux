@@ -85,17 +85,15 @@ app.post('/signIn', (req, res) => {
     });
 });
 
-app.get('/data', (req, res) => {
-    // Récupérez l'`idUser` et l'`idQcmName` de la session
-    const idUser = req.session.userId; // Assurez-vous d'avoir configuré la gestion de session dans votre application Express.js
-    const idQcmName = req.session.qcmId; // Assurez-vous de stocker idQcmName dans la session après que l'utilisateur ait sélectionné un QCM
 
-    // Utilisez ces valeurs dans votre requête SQL
-    db.query('SELECT question FROM js WHERE idUser = ? AND idQcmName = ?', [idUser, idQcmName], (error, results) => {
+app.get('/qcmList', (req, res) => {
+    const sql = 'SELECT id, QcmName FROM qcm'; // No need to alias 'QcmName' as 'name' in this case
+
+    db.query(sql, (error, results) => {
         if (error) {
-            res.status(500).json({ error: 'Erreur lors de la récupération des données' });
+            res.status(500).json({ error: 'Error fetching QCM list' });
         } else {
-            res.json(results); // Envoyez les données au format JSON
+            res.json(results);
         }
     });
 });
@@ -103,4 +101,31 @@ app.get('/data', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Express server listening at http://localhost:${port}`);
+});
+app.get('/getQuestions', (req, res) => {
+    const selectedQcmId = req.query.qcmId;
+
+    // Requête SQL pour récupérer les questions associées à ce QCM
+    const sql = `SELECT * FROM js WHERE idQcmName = ?`;
+
+    // Exécution de la requête
+    db.query(sql, [selectedQcmId], (err, results) => {
+        if (err) {
+            console.error('Erreur lors du chargement des questions:', err);
+            res.status(500).json({ error: 'Erreur lors du chargement des questions' });
+        } else {
+            // Organiser les questions dans un objet pour les renvoyer au client
+            const questionsData = {};
+            results.forEach((question, index) => {
+                // Utiliser index + 1 pour commencer à partir de 1
+                questionsData[`question${index + 1}`] = question.question;
+                questionsData[`question${index + 1}A`] = question.A;
+                questionsData[`question${index + 1}B`] = question.B;
+                questionsData[`question${index + 1}C`] = question.C;
+                questionsData[`question${index + 1}D`] = question.D;
+            });
+
+            res.json(questionsData);
+        }
+    });
 });
